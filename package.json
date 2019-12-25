@@ -8,6 +8,7 @@
     "dev": "node -r dotenv-safe/config src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "./src/index.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
