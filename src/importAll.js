@@ -5,7 +5,7 @@ const getDirectories = require('./helpers/getDirectories');
 const WHITELISTED_LANGUAGES = ['javascript'];
 const snippetsPath = join(process.cwd(), 'snippets');
 const { Snippet } = require('./models');
-const replaceKeyToUnique = require('./helpers/replaceKeyToUnique');
+const modifySnippets = require('./helpers/modifySnippets');
 
 const importAll = () => {
   const languages = getDirectories(snippetsPath);
@@ -15,7 +15,7 @@ const importAll = () => {
     packages.forEach(async (name) => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const packageSnippetsPath = join(snippetsPath, language, name, `${name}.json`);
-      const snippetsData = replaceKeyToUnique(require(packageSnippetsPath), name);
+      const snippetsData = modifySnippets(require(packageSnippetsPath), language, name);
       const snippetsDefaults = {
         language,
         name,
