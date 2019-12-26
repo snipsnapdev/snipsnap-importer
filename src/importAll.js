@@ -1,18 +1,20 @@
+
 const { join } = require('path');
 const getDirectories = require('./helpers/getDirectories');
 
-const snippetsPath = join(process.cwd(), 'snippets');
 const WHITELISTED_LANGUAGES = ['javascript'];
-
+const snippetsPath = join(process.cwd(), 'snippets');
 const { Snippet } = require('./models');
 
-const importSnippets = () => {
+const importAll = () => {
   const languages = getDirectories(snippetsPath);
   languages.forEach((language) => {
     if (!WHITELISTED_LANGUAGES.includes(language)) { return; }
+    console.log('aaaaa');
     const packages = getDirectories(join(snippetsPath, language));
     packages.forEach(async (name) => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
+
       const snippetsData = require(join(snippetsPath, language, name, `${name}.json`));
       const snippetsDefaults = {
         language,
@@ -37,4 +39,4 @@ const importSnippets = () => {
   });
 };
 
-module.exports = importSnippets;
+module.exports = importAll();
