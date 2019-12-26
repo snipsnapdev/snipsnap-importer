@@ -18,6 +18,7 @@ const processDeleted = async (type, language, name) => {
 
 
 const processAdded = async (type, language, name, filePath) => {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   const snippets = modifySnippets(require(filePath), language, name);
   const [, created] = await Snippet.findOrCreate({
     where: {
@@ -38,6 +39,7 @@ const processAdded = async (type, language, name, filePath) => {
 };
 
 const processModified = async (type, language, name, filePath) => {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   const snippets = modifySnippets(require(filePath), language, name);
   const [snippet] = await Snippet.update({
     snippets,

@@ -13,8 +13,8 @@ const importAll = () => {
     if (!WHITELISTED_LANGUAGES.includes(language)) { return; }
     const packages = getDirectories(join(snippetsPath, language));
     packages.forEach(async (name) => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
       const packageSnippetsPath = join(snippetsPath, language, name, `${name}.json`);
+      // eslint-disable-next-line import/no-dynamic-require, global-require
       const snippetsData = modifySnippets(require(packageSnippetsPath), language, name);
       const snippetsDefaults = {
         language,

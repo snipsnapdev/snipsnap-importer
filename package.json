@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:import:diff": "node -r dotenv-safe/config src/importDiff.js",
-    "dev:import:all": "node -r dotenv-safe/config src/importAll.js"
+    "dev:import:all": "node -r dotenv-safe/config src/importAll.js",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix"
   },
   "bin": "./src/cli.js",
   "author": "",
@@ -26,6 +28,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jest": "^23.1.1",
+    "jest": "^24.9.0",
     "pino-pretty": "^3.5.0"
   }
 }

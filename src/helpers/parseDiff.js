@@ -23,7 +23,7 @@ module.exports = (diff) => {
   diffLines.forEach((line) => {
     const result = diffRegExp.exec(line);
     if (result) {
-      [, type, language, name, fileName] = result;
+      const [, type, language, name, fileName] = result;
       formattedDiff.push({
         type: typeConverter(type),
         language,
