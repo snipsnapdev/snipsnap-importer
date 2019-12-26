@@ -12,8 +12,10 @@ if (process.argv.length === 3) {
       break;
     default:
       logger.error('Unsupported command');
+      throw Error;
       break;
   }
 } else {
   logger.error('The number of arguments is invalid');
+  throw Error;
 }

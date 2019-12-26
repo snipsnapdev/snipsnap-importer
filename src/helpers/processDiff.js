@@ -1,5 +1,6 @@
 const logger = require('../logger');
 const { Snippet } = require('../models');
+const replaceKeyToUnique = require('../helpers/replaceKeyToUnique');
 
 const processDeleted = async (type, language, name, filePath) => {
   const snippet = await Snippet.destroy({
@@ -17,7 +18,7 @@ const processDeleted = async (type, language, name, filePath) => {
 
 
 const processAdded = async (type, language, name, filePath) => {
-  const snippets = require(filePath);
+  const snippets = replaceKeyToUnique(require(filePath), name);
   const [, created] = await Snippet.findOrCreate({
     where: {
       language,
@@ -37,10 +38,8 @@ const processAdded = async (type, language, name, filePath) => {
 };
 
 const processModified = async (type, language, name, filePath) => {
-  const snippets = require(filePath);
+  const snippets = replaceKeyToUnique(require(filePath), name);
   const [snippet] = await Snippet.update({
-    language,
-    name,
     snippets,
   }, {
     where: {
