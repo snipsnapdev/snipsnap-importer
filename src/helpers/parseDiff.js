@@ -12,7 +12,7 @@ const typeConverter = (type) => {
     case 'M':
       return 'MODIFIED';
     default:
-      process.exit(1);
+      return process.exit(1);
   }
 };
 module.exports = (diff) => {

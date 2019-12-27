@@ -34,10 +34,10 @@ const validate = () => {
     const packages = getDirectories(join(snippetsPath, language));
     packages.forEach(async (name) => {
       const snippetsFile = join(snippetsPath, language, name, `${name}.json`);
-      // eslint-disable-next-line import/no-dynamic-require, global-require
       let snippetsData = {};
       // Validate file location at the right place
       try {
+        // eslint-disable-next-line import/no-dynamic-require, global-require
         snippetsData = require(snippetsFile);
       } catch (err) {
         const msg = {
