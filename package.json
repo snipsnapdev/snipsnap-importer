@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:import:diff": "node -r dotenv-safe/config src/importDiff.js",
     "dev:import:all": "node -r dotenv-safe/config src/importAll.js",
+    "dev:validate": "node -r dotenv-safe/config src/validate.js",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -20,7 +21,8 @@
     "pg": "^7.15.1",
     "pg-hstore": "^2.3.3",
     "pino": "^5.15.0",
-    "sequelize": "^5.21.3"
+    "sequelize": "^5.21.3",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

@@ -1,11 +1,11 @@
 
 const { join } = require('path');
 const getDirectories = require('./helpers/getDirectories');
-
-const WHITELISTED_LANGUAGES = ['javascript'];
-const snippetsPath = join(process.cwd(), 'snippets');
 const { Snippet } = require('./models');
 const modifySnippets = require('./helpers/modifySnippets');
+const { WHITELISTED_LANGUAGES } = require('./constants');
+
+const snippetsPath = join(process.cwd(), 'snippets');
 
 const importAll = () => {
   const languages = getDirectories(snippetsPath);

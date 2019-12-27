@@ -11,22 +11,9 @@ const replaceKeyToUnique = (snippets, language, packageName) => {
   return newSnippets;
 };
 
-const addSearchablePrefix = (snippets, packageName) => {
-  const newSnippets = snippets;
-  Object.keys(snippets).forEach((snippetName) => {
-    const prefixes = newSnippets[snippetName].prefix;
-    if (Array.isArray(prefixes)) {
-      newSnippets[snippetName].prefix.unshift(`${packageName} ${prefixes[0]}`);
-    }
-    if (typeof prefixes === 'string') {
-      newSnippets[snippetName].prefix = [`${packageName} ${prefixes}`];
-    }
-  });
-  return newSnippets;
-};
+// Could be multiple chained modifications in future
 
 module.exports = (snippets, language, packageName) => {
-  let newSnippets = replaceKeyToUnique(snippets, language, packageName);
-  newSnippets = addSearchablePrefix(snippets, packageName);
+  const newSnippets = replaceKeyToUnique(snippets, language, packageName);
   return newSnippets;
 };

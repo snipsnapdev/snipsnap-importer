@@ -12,6 +12,10 @@ if (process.argv.length === 3) {
       // eslint-disable-next-line global-require
       require('./importAll');
       break;
+    case 'validate':
+      // eslint-disable-next-line global-require
+      require('./validate');
+      break;
     default:
       logger.error('Unsupported command');
       throw Error;
