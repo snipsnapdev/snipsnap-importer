@@ -12,7 +12,7 @@ const typeConverter = (type) => {
     case 'M':
       return 'MODIFIED';
     default:
-      throw Error('Unexpected diff type');
+      process.exit(1);
   }
 };
 module.exports = (diff) => {

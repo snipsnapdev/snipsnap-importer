@@ -29,13 +29,29 @@ const validate = () => {
   languages.forEach((language) => {
     if (!WHITELISTED_LANGUAGES.includes(language)) {
       logger.error('Unsupported language folder detected');
-      throw Error;
+      process.exit(1);
     }
     const packages = getDirectories(join(snippetsPath, language));
     packages.forEach(async (name) => {
       const snippetsFile = join(snippetsPath, language, name, `${name}.json`);
       // eslint-disable-next-line import/no-dynamic-require, global-require
-      const snippetsData = require(snippetsFile);
+      let snippetsData = {};
+      // Validate file location at the right place
+      try {
+        snippetsData = require(snippetsFile);
+      } catch (err) {
+        const msg = {
+          errors: [
+            {
+              title: 'Invalid File',
+              detail: `Can't find valid json object at ${snippetsFile}`,
+            },
+          ],
+        };
+        logger.error(msg);
+        process.exit(1);
+      }
+      // Validate snippets object
       Object.keys(snippetsData).forEach(async (key) => {
         try {
           await snippetSchema.validate(snippetsData[key], { strict: true, packageName: name });
@@ -53,7 +69,7 @@ const validate = () => {
             ],
           };
           logger.error(msg);
-          throw Error;
+          process.exit(1);
         }
       });
     });
