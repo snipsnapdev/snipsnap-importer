@@ -13,16 +13,22 @@ function testFirstPrefix(item) {
 }
 
 const snippetSchema = yup.object().shape({
-  scope: yup.string().required(),
+  scope: yup.string().required().lowercase(),
   body: yup.array().of(yup.string()).required(),
-  prefix: yup.array().of(yup.string()).required().test(
-    null,
-    'The first prefix should have the format `packageName trigger`. Example: `gatsby-image useStatisQuery`',
-    testFirstPrefix,
-  ),
+  prefix: yup.array().of(
+    yup.string()
+      .lowercase(),
+  ).required()
+    .test(
+      null,
+      'The first prefix should have the format `packageName trigger`. Example: `gatsby-image usestatisquery`',
+      testFirstPrefix,
+    ),
   description: yup.string(),
 }).noUnknown();
 
+// Validate for that Object key is in kebab-case
+const snippetKeySchema = yup.string().lowercase().matches(/^[a-z-0-9]+$/, 'Object key should be in kebab-case');
 
 const validate = () => {
   const languages = getDirectories(snippetsPath);
@@ -54,6 +60,7 @@ const validate = () => {
       // Validate snippets object
       Object.keys(snippetsData).forEach(async (key) => {
         try {
+          await snippetKeySchema.validate(key, { strict: true });
           await snippetSchema.validate(snippetsData[key], { strict: true, packageName: name });
         } catch (err) {
           const msg = {
@@ -64,6 +71,7 @@ const validate = () => {
                 source: {
                   language,
                   name,
+                  value: err.value,
                 },
               },
             ],
