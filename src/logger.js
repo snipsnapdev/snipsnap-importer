@@ -1,8 +1,8 @@
 const { NODE_ENV } = process.env;
 
-const prettierOptions = NODE_ENV === 'development' ? {
+const prettierOptions = {
   translateTime: true,
-} : false;
+}
 
 const logger = require('pino')({
   enabled: NODE_ENV !== 'test',

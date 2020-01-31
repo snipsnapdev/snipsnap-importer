@@ -82,6 +82,7 @@ const validate = () => {
       });
     });
   });
+  logger.info('Good job! Snippets have the correct format.')
 };
 
 
